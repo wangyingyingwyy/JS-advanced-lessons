@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //number进阶
+    var n1 = 12345.6789;
+    console.log(n1.toFixed(2));//12345.68
+    console.log(n1.toPrecision(2));//1.2e+4
+    console.log(n1.toString());//12345.6789
+    console.log(n1.toExponential(2)); //1.23e+4
+
+    //string进阶
+    var str1="abcdef";
+    var strobject= new String(str1);
+    //返回特定索引位置的字符
+    strobject.charAt(2);
+
+    var str="abcdefghijklmn";
+    sstr.charAt(1);//b
+    str.charCodeAt(0);//97
+    str.slice(1,-1);//bcdefghijklm
+    str.substr(0,5);//abcde
+    str.substring(3,0);//abc
+    //substring(截取字符串起始位置，截取字符串结束位置)
+    //起始值>结束值  互换位置
+    //如果有超出索引位置，自动截取
+    str.substring(-1,3);//默认从0开始
+    str1="qwe*asd*zxc";
+    //spit(特定字符)将字符串以特定字符进行分割，
+    //将字符作为数组元素生成数组
+    str.split("*");
+
+    console.log("A" > "a");//false
+    console.log("B".localeCompare("A"));//1
+    var str="    abc    d     ";
+    //trim()去除字符串两边的空白字符，字符串内部的不去除
+    str.trim();//"abc   d"
+    var str1="hello";
+    //字符串的拼接
+    str1.concat("world");//helloworld
+</script>
+</html>
