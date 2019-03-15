@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //逻辑运算符
+    console.log(20&&0);//输出0
+    console.log(null&&20);//输出null
+
+    //操作数非布尔类型，&&短路原则
+    console.log(2&&4);//4
+    console.log(0&&4);//0
+    console.log({x:2}&&{name:"Jack"});//{name:"Jack"}
+    console.log(null&&"hello");//null
+    console.log({}&&"world");//world
+
+    //操作数非布尔类型，||短路原则
+    console.log(2||4);//2
+    console.log(0||4);//4
+    console.log({x:2}||{name:"Jack"});//{x:2}
+    console.log(null||"hello");//hello
+    console.log({}||"world");//{}
+
+    //所有对象转换为布尔类型 都为 true
+    console.log((new Boolean(false))&&234);//234
+    console.log((new Boolean(false))||234);// Boolean(false)
+
+    var score=76;
+    console.log((score>90&&"优")||(score>75&&"良")||(score>60&&"及格")||"不及格！");
+    //switch和case做的是全等的判断，值和类型必须相等。
+    switch(true){
+        case score>90:
+            console.log("优");
+            break;
+        case score>75:
+            console.log("良");
+            break;
+        case score>60:
+            console.log("及格");
+            break;
+        default:
+            console.log("不及格");
+            break;
+    }
+</script>
+<script>
+    //定义函数的形参和调用函数的实参个数可以不一致。
+    function sum(x,y,z){
+        x=x;
+        y=y;
+        z=z;
+        return x+y+z;
+    }
+    console.log(sum());//NaN
+
+    //ES5中设置默认值
+    function sum2(x,y,z){
+        x=x ||1;
+        y=y ||2;
+        z=z ||3;
+        return x+y+z;
+    }
+    console.log(sum2());//6
+    //ES6中设置默认值
+    function sum3(x,y=2,z=3){
+        return x+y+z;
+    }
+    sum3(1);
+</script>
+<script>
+    //函数声明
+    //显函数,变量的定义被解释器进行提升。
+    console.log(num1(1,2));
+    function num1(x,y){
+        return x+y;
+    }
+
+    var num2=function(x,y){
+        return x+y;
+    }
+    num2(2,3);
+
+    //使用Function构造函数来实例化得到一个function
+    //Function实例化的函数执行效率低，但是灵活。
+    var fn1=new Function('x','y','return x+y');
+    fn(1,2);
+
+    window.onload=function(x,y){
+        return x+y;
+    }
+</script>
+</html>
