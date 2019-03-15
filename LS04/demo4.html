@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //ES5中没有块作用域
+    for(var i = 0;i<5;i++){
+    console.log("in for ",i);
+    }
+    console.log("out of for ",i);//输出5
+
+    if(false){
+    var b = 30;
+    }
+    console.log(b);//undefined
+
+    //对当前页面的所有JavaScript都使用严格模式
+    'use strict'//全局使用
+    function fn1(){
+        'use strict'//函数内部使用严格模式
+    }
+
+    //如果变量不使用var声明，会自动提升到全局变量
+    //严格模式下，变量必须进行声明
+    function  sloppyFunc() {
+    sloppyVar = 123;
+    }
+    sloppyFunc();
+    console.log(sloppyVar);//123
+
+    function  sloppyFunc() {
+        'use strict'
+        sloppyVar = 123;
+    }
+    sloppyFunc();
+    console.log(sloppyVar);//报错
+
+    function fn3(){
+        //普通函数内部this指向window
+        console.log(this);
+    }
+    fn3();
+    function fn4(){
+        //严格模式下this指向undefined
+        'use strict'
+        console.log(this);
+    }
+    fn4();
+
+    //严格模式下禁止删除不可改变的属性的变量
+    var str = "abc";
+    var strDescriptor = Object.getOwnPropertyDescriptor(window,"str");
+    console.log(strDescriptor);
+    function  sloppyFunc() {
+        str.length = 7;
+        //console.log(Object.getOwnPropertyDescriptor(str,"length"));
+        console.log(str.length);//
+    }
+    sloppyFunc();//3
+
+    function  strictFunc() {
+        'use strict';
+        console.log(Object.getOwnPropertyDescriptor(str,"length"));
+        str.length = 7;
+        console.log(str.length);
+    }
+    strictFunc();//报错
+
+    // switch 语句在比较值时使用的是全等操作符,因此不会发生类型转换
+    var i = "1";
+    switch(i){
+        case 1:
+            console.log("case 1 Number");
+            break;
+        default:
+            console.log("default");
+    }//输出default
+
+    //for ... in 遍历数组
+    var arr = [2,,"33"];
+    for(var i in arr){
+        console.log(i,arr[i]);
+    }
+    //输出0  2；2  33
+</script>
+</html>
