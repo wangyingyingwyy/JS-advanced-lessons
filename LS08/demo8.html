@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function foo(){}
+    console.log(foo); //
+    console.log(typeof foo); //function
+    console.log(foo instanceof Object); //true
+    console.log(foo instanceof Function); //true
+    console.log(foo === window.foo); //true
+
+
+    console.log(typeof Function);//function
+    console.log(typeof Array);	 //function
+    console.log(typeof Date);	 //function
+    console.log(typeof Error); 	 //function
+    console.log(typeof Math);	 //object
+    console.log(typeof JSON);	 //obiect
+</script>
+<script>
+    //函数对象的属性
+    //part11
+    function fn1(){
+        //arguments获取函数调用时，传入的实参，类数组结构
+        for(var i=0;i<arguments.length;i++){
+            console.log(arguments[i]);
+        }
+        //函数名.length表示形参的个数
+        console.log(fn1.length);
+    }
+    fn1(2,3);
+    //part12
+    //caller返回调用该函数的函数
+    function fn2(x){
+        console.log(fn2.caller);
+    }
+    function fn3(){
+        fn2();
+    }
+    fn3();
+    //函数对象的方法
+    //part21
+    var objA={"objName":"AAA"};
+    var objB={"objName":"BBB"};
+    objA.foo=function(){
+        console.log(this.objName);
+    }
+    objA.foo();
+    objA.foo.call(objB);
+    //part22
+    //bind()创建一个新的函数，this指向改变
+    var objA={
+        "objName":"aaa",
+        "foo":function(){
+            console.log(this.objName);
+        }
+    }
+    var objB={"objName":"bbb"};
+    var foo2=objA.foo.bind(objB);
+    foo2();
+</script>
+<script>
+    //高阶函数
+    var obj={x:3};
+    function f1(){
+        function f2(){
+            console.log(this.x)
+        }
+        return f2;
+    }
+    obj.f3=f1;
+    obj.f4=f1();
+
+    obj.f3();
+    obj.f4();
+
+    // 实例一 高阶函数一般应用 01
+    function add(x, y, f) {
+        return f(x) + f(y);
+    }
+    add(2,3,function(z){return z*z;});//13
+    add(2,-3,Math.abs);//5
+    add(2,3,Math.sqrt);//2的开平方加3的开平方
+    //函数多层嵌套，无法穿透
+    var obj1={
+        x:1,
+        fn1:function(){
+            //var that=this;
+            function fn2(){
+                console.log(this.x);
+            }
+            console.log(this.x);
+            fn2();
+        }
+    }
+    obj1.fn1();
+
+    // Part 22 函数作为返回值输出
+    var x=12;
+    var obj = {
+        x:34,
+        fun2:function(){
+            console.log(this.x,this);
+        }
+    };
+    var fun1 = function () {
+        return function fun2() {
+            return this.x;//若改为 return this;
+        }
+    };
+    obj.fun3 = fun1;
+    obj.fun4 = fun1();
+    console.log("输出：",obj.fun3());//输出fun2()
+    console.log("输出：",obj.fun3()());//输出12
+    console.log("输出：",obj.fun4());//输出34
+</script>
+</html>
