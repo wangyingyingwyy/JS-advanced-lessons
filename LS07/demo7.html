@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //函数定义的方式
+    //part1
+    function max(a,b){
+        return a>b?a:b;
+    }
+    max(2,3);//3
+    //part2
+    var max=function(a,b){
+        return a>b?a:b;
+    }
+    max(2,3); 
+    //part3
+    var max=new Function("a","b","return a>b?a:b");
+    max(2,3);//3
+</script>
+<script>
+    //函数调用的方法
+    //part1
+    function test1() {
+        console.log(this);
+    }
+    test1();//window
+    //嵌套的情况下
+    var obj={
+        x:0,
+        text:function(){
+            console.log(this.x);
+        }
+    }
+    obj.text();
+    //part2 对象方法的调用
+    var obj = {
+        name:"obj",
+        x:23,
+        test:function(){
+            console.log(this.x,this);
+        }
+    };
+    obj.test();//23 obj
+    //part3 call()和apply()
+    var objA={"objName":"AAA"};
+    var objB={"objNaame":"BBB"};
+    objA.foo=function(){
+        console.log(this.objName);
+    }
+    objA.foo();//AAA
+    //方法名.call(对象)切换调用对象,
+    //apply()
+    objA.foo.call(objB);//BBB
+    //part4 构造函数调用
+    function Person(username){
+        this.username=username;
+    }
+
+    Person.prototype.sayHi=function(){
+        console.log(this.username);
+    }
+    var person=new Person("张三");
+    person.sayHi();//张三
+</script>
+<script>
+    //调用参数的数量问题
+    //实参数大于形参数
+    function test() {
+        console.log(arguments);
+        console.log(test.arguments==arguments,arguments);
+        console.log(arguments.length);//2
+        console.log(typeof arguments);//object
+        console.log(arguments instanceof Array);//false
+        console.log(arguments instanceof Object);//true
+        console.log(Array.prototype.slice.call(arguments));
+        var s = "";
+        for (var i = 0; i < arguments.length; i++) {
+            s += arguments[i];
+        }
+        return s;
+    }
+    test("hello,", "world!");//"hello,world!"
+
+
+    //实参数小于形参数
+    var sum = function(a,b,c){
+        b = b||4;
+        c = c||5;
+        return a+b+c;
+    };
+    console.log(sum(1,2,3));//6
+    console.log(sum(1,2));//8
+    console.log(sum(1));//10
+</script>
+<script>
+    //参数类型和传递方式
+    //值传递
+    var a = 1;
+    function foo(x) {
+        console.trace("a:",a," x:",x);
+        x = 2;//step 2222
+        console.trace("a:",a," x:",x);//step 3333
+    }
+
+    console.trace("a:",a);
+    foo(a);// step 1111
+    console.trace("a:",a); // step 4444  a仍为1
+    //引用传递
+    var obj = {x:1};
+    function fee(o){
+        console.trace("obj.x :",obj.x," o.x :",o.x);
+        o.x = 3;// step 2222
+        console.trace("obj.x :",obj.x," o.x :",o.x);// step 3333
+    }
+
+    console.trace("obj.x :",obj.x);
+    fee(obj);// step 1111
+    console.trace("obj.x :",obj.x);//step 4444  obj.x被改写为3
+</script>
+</html>
